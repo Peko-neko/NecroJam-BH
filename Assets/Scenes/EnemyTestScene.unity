@@ -866,7 +866,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: armorText
+  m_text: Sanity Text
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 04740ded37abe3e4f87b6c79271f996b, type: 2}
   m_sharedMaterial: {fileID: -7040125949131221021, guid: 04740ded37abe3e4f87b6c79271f996b, type: 2}
@@ -5406,7 +5406,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0.3962264, g: 0.3962264, b: 0.3962264, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -5431,7 +5431,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 8
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -6025,6 +6025,11 @@ Material:
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!1 &809618247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 490990976339635471, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
+  m_PrefabInstance: {fileID: 1313278100}
+  m_PrefabAsset: {fileID: 0}
 --- !u!21 &815699263
 Material:
   serializedVersion: 8
@@ -9077,9 +9082,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1198736087}
     - target: {fileID: 1472583033507759624, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
+      propertyPath: maxArmor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472583033507759624, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       propertyPath: armorText
       value: 
-      objectReference: {fileID: 122302522}
+      objectReference: {fileID: 0}
     - target: {fileID: 1472583033507759624, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       propertyPath: hitBottom
       value: 
@@ -9095,7 +9104,11 @@ PrefabInstance:
     - target: {fileID: 1472583033507759624, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       propertyPath: armorSlider
       value: 
-      objectReference: {fileID: 872206726}
+      objectReference: {fileID: 0}
+    - target: {fileID: 1472583033507759624, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
+      propertyPath: currentArmor
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1472583033507759624, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       propertyPath: healthSlider
       value: 
@@ -9160,6 +9173,10 @@ PrefabInstance:
       propertyPath: meleeDamage
       value: 30
       objectReference: {fileID: 0}
+    - target: {fileID: 8444562364786468373, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
+      propertyPath: slashEffect
+      value: 
+      objectReference: {fileID: 2471590381275470108, guid: c7b32e2784aaf834fbd76746f43ef13d, type: 3}
     - target: {fileID: 8444562364786468373, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       propertyPath: meleeCooldown
       value: 0.4
@@ -9356,8 +9373,7 @@ PrefabInstance:
       propertyPath: 'rocketLauncherReloadClips.Array.data[1]'
       value: 
       objectReference: {fileID: 8300000, guid: 88507181bc8c6814b9e4e659c8ead084, type: 3}
-    m_RemovedComponents:
-    - {fileID: 1579072323409551913, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 7590096213035684021, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
     - {fileID: 3232076041922762270, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
@@ -9365,7 +9381,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5675674430907927652, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1155560371}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 490990976339635471, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1313278114}
   m_SourcePrefab: {fileID: 100100000, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
 --- !u!4 &1313278101 stripped
 Transform:
@@ -9377,6 +9396,20 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9156383453854913971, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
   m_PrefabInstance: {fileID: 1313278100}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1313278114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809618247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d14c1438e4c129e41b89554f866c77a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  maxSanity: 100
+  startingSanity: 100
 --- !u!1 &1320071191
 GameObject:
   m_ObjectHideFlags: 0
@@ -15586,6 +15619,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameController
   clearDelay: 5
+  nextSceneName: Stage2
+  transitionDelay: 2
 --- !u!4 &2034446663
 Transform:
   m_ObjectHideFlags: 0

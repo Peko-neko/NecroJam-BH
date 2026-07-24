@@ -26,12 +26,6 @@ namespace AlignedGames
         // UI text showing health numbers
         public TextMeshProUGUI healthText;
 
-        [Header("UI Elements - Armor")]
-        // UI slider showing armor
-        public Slider armorSlider;
-        // UI text showing armor numbers
-        public TextMeshProUGUI armorText;
-
         [Header("Pickup Settings")]
         // Reference to the pickup item nearby
         public PickupIdentifier nearbyPickup;
@@ -81,18 +75,14 @@ namespace AlignedGames
         {
             // Initialize health and armor to max values at start
             currentHealth = maxHealth;
-            currentArmor = maxArmor;
             UpdateHealthUI();
-            UpdateArmorUI();
         }
 
         private void Start()
         {
             // Also ensure values are set at Start (redundant but safe)
             currentHealth = maxHealth;
-            currentArmor = maxArmor;
             UpdateHealthUI();
-            UpdateArmorUI();
         }
 
         private void Update()
@@ -131,9 +121,6 @@ namespace AlignedGames
                     case PickupIdentifier.PickupItemType.Health:
                         PickupHealth(nearbyPickup);
                         break;
-                    case PickupIdentifier.PickupItemType.Armor:
-                        PickupArmor(nearbyPickup);
-                        break;
                 }
 
                 PlayPickupSound();
@@ -154,8 +141,7 @@ namespace AlignedGames
             if (other.CompareTag("Pickup"))
             {
                 PickupIdentifier pickup = other.GetComponent<PickupIdentifier>();
-                if (pickup != null && (pickup.pickupType == PickupIdentifier.PickupItemType.Health ||
-                                       pickup.pickupType == PickupIdentifier.PickupItemType.Armor))
+                if (pickup != null && (pickup.pickupType == PickupIdentifier.PickupItemType.Health))
                 {
                     nearbyPickup = pickup;
                     if (pickupText != null)
@@ -195,16 +181,9 @@ namespace AlignedGames
             Heal(healthPickup.healthToRestore);
         }
 
-        public void PickupArmor(PickupIdentifier armorPickup)
-        {
-            // Pickup armor and add to current armor
-            if (armorPickup == null || armorPickup.pickupType != PickupIdentifier.PickupItemType.Armor) return;
-            AddArmor(armorPickup.armorToRestore);
-        }
-
         public void TakeDamage(int damage, Vector2 sourcePosition)
         {
-            // Called when player takes damage, applies armor first, then health
+            // Called when player takes damage
 
             SpawnBloodDecal();
             PlayHitFeedback(damage);
@@ -222,15 +201,6 @@ namespace AlignedGames
             ShowHitIndicator(direction, damage);
 
             if (damage <= 0) return;
-
-            // Apply damage to armor first, reducing damage if possible
-            if (currentArmor > 0)
-            {
-                int damageToArmor = Mathf.Min(damage, currentArmor);
-                currentArmor -= damageToArmor;
-                damage -= damageToArmor;
-                UpdateArmorUI();
-            }
 
             // Apply remaining damage to health
             if (damage > 0)
@@ -329,14 +299,6 @@ namespace AlignedGames
             UpdateHealthUI();
         }
 
-        public void AddArmor(int amount)
-        {
-            // Add armor points, up to max armor
-            if (amount <= 0) return;
-            currentArmor = Mathf.Min(currentArmor + amount, maxArmor);
-            UpdateArmorUI();
-        }
-
         private void Die()
         {
             // Called when player health reaches zero
@@ -359,18 +321,5 @@ namespace AlignedGames
                 healthText.text = $"{currentHealth} / {maxHealth}";
         }
 
-        private void UpdateArmorUI()
-        {
-            // Update armor slider and text UI to current values
-            if (armorSlider != null)
-            {
-                armorSlider.maxValue = maxArmor;
-                armorSlider.value = currentArmor;
-            }
-
-            if (armorText != null)
-                armorText.text = $"{currentArmor} / {maxArmor}";
-        }
     }
-
 }
