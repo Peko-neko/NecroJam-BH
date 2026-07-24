@@ -387,6 +387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   clearDelay: 2
+  nextSceneName: Stage2
+  transitionDelay: 2
 --- !u!4 &1312461568
 Transform:
   m_ObjectHideFlags: 0

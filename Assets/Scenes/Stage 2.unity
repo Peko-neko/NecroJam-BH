@@ -387,6 +387,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   clearDelay: 2
+  nextSceneName: Stage2
+  transitionDelay: 2
 --- !u!4 &1312461568
 Transform:
   m_ObjectHideFlags: 0
@@ -416,11 +418,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7658029240330497564, guid: f400d76f910340944b4cb379a1499409, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.45
+      value: -5.45
       objectReference: {fileID: 0}
     - target: {fileID: 7658029240330497564, guid: f400d76f910340944b4cb379a1499409, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.82
+      value: -2.2
       objectReference: {fileID: 0}
     - target: {fileID: 7658029240330497564, guid: f400d76f910340944b4cb379a1499409, type: 3}
       propertyPath: m_LocalPosition.z
@@ -473,11 +475,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4541663745047252600, guid: 1cc80a864b4f8b6429c6c54366df177c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.22
+      value: 0.94
       objectReference: {fileID: 0}
     - target: {fileID: 4541663745047252600, guid: 1cc80a864b4f8b6429c6c54366df177c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.82
+      value: 3.14
       objectReference: {fileID: 0}
     - target: {fileID: 4541663745047252600, guid: 1cc80a864b4f8b6429c6c54366df177c, type: 3}
       propertyPath: m_LocalPosition.z
