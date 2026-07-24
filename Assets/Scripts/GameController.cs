@@ -35,6 +35,7 @@ public class GameController : MonoBehaviour
         stageCleared = true;
         Debug.Log("Stage complete. 0 enemies left");
 
+        SaveSystem.SaveProgress(nextSceneName); // record where to continue from
         Invoke(nameof(LoadNextScene), transitionDelay);
     }
 

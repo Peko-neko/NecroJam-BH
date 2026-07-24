@@ -3,9 +3,23 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuController : MonoBehaviour
 {
-    public void PlayGame()
+    [SerializeField] private GameObject continueButton;
+
+    void Start()
     {
-        SceneManager.LoadScene("Stage 1");
+        continueButton.SetActive(SaveSystem.HasSave());
+    }
+
+    public void ContinueGame()
+    {
+        string savedScene = SaveSystem.GetSavedScene();
+        SceneManager.LoadScene(savedScene);
+    }
+
+    public void NewGame()
+    {
+        SaveSystem.ClearSave(); // wipe old progress so a fresh run doesn't inherit it
+        SceneManager.LoadScene("Stage1");
     }
 
     public void QuitGame()
