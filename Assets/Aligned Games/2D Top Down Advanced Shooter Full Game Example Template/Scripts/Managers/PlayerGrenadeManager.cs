@@ -80,9 +80,6 @@ namespace AlignedGames
                         audioSource.PlayOneShot(randomSound);
                     }
 
-                    Destroy(nearbyPickup.gameObject); // Remove pickup from scene
-                    nearbyPickup = null; // Clear reference
-
                     if (pickupText != null) pickupText.gameObject.SetActive(false); // Hide pickup UI
                 }
             }
@@ -143,7 +140,6 @@ namespace AlignedGames
                 {
                     rb.linearVelocity = Vector2.zero;
                     rb.angularVelocity = 0f;
-                    Destroy(rb);
                 }
 
                 yield return null;
