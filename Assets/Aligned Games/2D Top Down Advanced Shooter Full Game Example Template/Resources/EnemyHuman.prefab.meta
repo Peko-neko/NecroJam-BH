@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: fcc993878a57ef843983e5b47b677134
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321318
+  packageName: 2D Top Down Advanced Tactical Shooter Full Game Example Template
+  packageVersion: 1.1
+  assetPath: Assets/Aligned Games/2D Top Down Advanced Shooter Full Game Example
+    Template/Resources/EnemyHuman.prefab
+  uploadId: 859990

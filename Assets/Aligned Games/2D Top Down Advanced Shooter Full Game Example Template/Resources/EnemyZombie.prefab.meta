@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 0fe40213c3f57e8478703af865a85a1b
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321318
+  packageName: 2D Top Down Advanced Tactical Shooter Full Game Example Template
+  packageVersion: 1.1
+  assetPath: Assets/Aligned Games/2D Top Down Advanced Shooter Full Game Example
+    Template/Resources/EnemyZombie.prefab
+  uploadId: 859990

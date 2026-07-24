@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: e0c54967e9e2f964e9dc40f9dc36b584
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321318
+  packageName: 2D Top Down Advanced Tactical Shooter Full Game Example Template
+  packageVersion: 1.1
+  assetPath: Assets/Aligned Games/2D Top Down Advanced Shooter Full Game Example
+    Template/Profiles/Post Processing Volume Profile.asset
+  uploadId: 859990

@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 75956fb060e33064d92f66e8255f818e
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321318
+  packageName: 2D Top Down Advanced Tactical Shooter Full Game Example Template
+  packageVersion: 1.1
+  assetPath: Assets/Aligned Games/2D Top Down Advanced Shooter Full Game Example
+    Template/Scripts/Managers/PlayerCombatManager.cs
+  uploadId: 859990

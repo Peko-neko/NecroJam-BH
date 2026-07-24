@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 8b925163735d059459c25f421875dc03
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321318
+  packageName: 2D Top Down Advanced Tactical Shooter Full Game Example Template
+  packageVersion: 1.1
+  assetPath: Assets/Aligned Games/2D Top Down Advanced Shooter Full Game Example
+    Template/Resources/Pickups/SniperRiflePickup.prefab
+  uploadId: 859990

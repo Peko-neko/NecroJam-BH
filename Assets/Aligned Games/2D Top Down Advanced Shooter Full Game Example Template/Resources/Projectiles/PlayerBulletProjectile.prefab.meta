@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b94fd3c0dcf9c0b4888fbea9edd00849
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321318
+  packageName: 2D Top Down Advanced Tactical Shooter Full Game Example Template
+  packageVersion: 1.1
+  assetPath: Assets/Aligned Games/2D Top Down Advanced Shooter Full Game Example
+    Template/Resources/Projectiles/PlayerBulletProjectile.prefab
+  uploadId: 859990

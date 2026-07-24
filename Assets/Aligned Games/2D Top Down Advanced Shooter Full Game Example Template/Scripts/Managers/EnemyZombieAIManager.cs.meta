@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 7e0712f9d90ac2e4aafddb773d5aa4c5
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321318
+  packageName: 2D Top Down Advanced Tactical Shooter Full Game Example Template
+  packageVersion: 1.1
+  assetPath: Assets/Aligned Games/2D Top Down Advanced Shooter Full Game Example
+    Template/Scripts/Managers/EnemyZombieAIManager.cs
+  uploadId: 859990

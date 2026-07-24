@@ -11,7 +11,7 @@ public class GameController : MonoBehaviour
     {
         if (stageCleared) return;
 
-        bool enemiesRemain = GameObject.FindGameObjectWithTag("Enemy") != null || GameObject.FindGameObjectWithTag("Boss") != null;
+        bool enemiesRemain = GameObject.FindGameObjectWithTag("Enemy") != null;
 
         if (enemiesRemain)
         {

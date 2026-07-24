@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: b4c53d45e37b576439eaa166ca215d31
+PrefabImporter:
+  externalObjects: {}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321318
+  packageName: 2D Top Down Advanced Tactical Shooter Full Game Example Template
+  packageVersion: 1.1
+  assetPath: Assets/Aligned Games/2D Top Down Advanced Shooter Full Game Example
+    Template/Resources/Projectiles/EnemyRocketProjectile.prefab
+  uploadId: 859990

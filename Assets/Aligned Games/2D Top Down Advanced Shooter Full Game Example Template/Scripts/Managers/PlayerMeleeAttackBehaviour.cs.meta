@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 42b7c4c1d74ea5d4ebdc89c534a63a4c
+AssetOrigin:
+  serializedVersion: 1
+  productId: 321318
+  packageName: 2D Top Down Advanced Tactical Shooter Full Game Example Template
+  packageVersion: 1.1
+  assetPath: Assets/Aligned Games/2D Top Down Advanced Shooter Full Game Example
+    Template/Scripts/Managers/PlayerMeleeAttackBehaviour.cs
+  uploadId: 859990
