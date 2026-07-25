@@ -119,59 +119,80 @@ namespace AlignedGames
             // Rotation to make hit effects face correctly
             Quaternion oppositeRotation = Quaternion.LookRotation(Vector3.forward, -transform.up);
 
-            if (!meleeHitbox.activeSelf) return; // Ignore if hitbox inactive
-            if (hitTargets.Contains(collision)) return; // Ignore if already hit this collider this attack
+            if (!meleeHitbox.activeSelf) return;
+            if (hitTargets.Contains(collision)) return;
 
-            hitTargets.Add(collision); // Add collider to hit list
+            hitTargets.Add(collision);
 
             if (collision.CompareTag("Enemy"))
             {
-                // Deal damage to enemy
+                // Deal damage
                 EnemyHealthManager enemyHealth = collision.GetComponent<EnemyHealthManager>();
                 if (enemyHealth != null)
                 {
                     enemyHealth.TakeDamage(meleeDamage);
                 }
 
-                // Apply knockback force if enemy has Rigidbody2D
+                // Knockback
                 if (knockbackForce > 0 && collision.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
                 {
                     Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
                     rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
                 }
 
-                // Trigger aggression on AI enemies if they have the scripts
+                // Alert AI
                 EnemyZombieAIManager zombieAI = collision.GetComponent<EnemyZombieAIManager>();
                 if (zombieAI != null)
-                {
                     zombieAI.TriggerAggression();
-                }
 
                 HumanEnemyAIManager humanAI = collision.GetComponent<HumanEnemyAIManager>();
                 if (humanAI != null)
-                {
                     humanAI.TriggerAggression();
-                }
 
-                // Spawn blood effect
+                // Blood effect
                 if (bloodEffectPrefab != null)
                 {
-                    GameObject blood = Instantiate(bloodEffectPrefab, meleeHitbox.transform.position, oppositeRotation);
+                    GameObject blood = Instantiate(
+                        bloodEffectPrefab,
+                        collision.ClosestPoint(transform.position),
+                        oppositeRotation);
+
                     TryAssignRandomSprite(blood, bloodSprites);
                 }
 
-                PlayRandomEnemyHitSound(); // Play enemy hit sound
+                PlayRandomEnemyHitSound();
             }
             else if (collision.CompareTag("Obstacle") || collision.CompareTag("Wall"))
             {
-                // Spawn hit effect on obstacles or walls
                 if (hitEffectPrefab != null)
                 {
-                    GameObject hit = Instantiate(hitEffectPrefab, meleeHitbox.transform.position, oppositeRotation);
+                    GameObject hit = Instantiate(
+                        hitEffectPrefab,
+                        collision.ClosestPoint(transform.position),
+                        oppositeRotation);
+
                     TryAssignRandomSprite(hit, hitSprites);
                 }
 
-                PlayRandomObstacleHitSound(); // Play obstacle hit sound
+                PlayRandomObstacleHitSound();
+            }
+            else if (collision.CompareTag("Bullet"))
+            {
+                // Spawn slash impact
+                if (hitEffectPrefab != null)
+                {
+                    GameObject hit = Instantiate(
+                        hitEffectPrefab,
+                        collision.transform.position,
+                        oppositeRotation);
+
+                    TryAssignRandomSprite(hit, hitSprites);
+                }
+
+                PlayRandomObstacleHitSound();
+
+                // Destroy the bullet
+                Destroy(collision.gameObject);
             }
         }
 

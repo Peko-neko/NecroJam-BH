@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Obstacle
   - Wall
+  - Bullet
   layers:
   - Default
   - TransparentFX
@@ -47,3 +48,4 @@ TagManager:
     locked: 0
   m_RenderingLayers:
   - Default
+  m_MigratedRenderPipelines: []
