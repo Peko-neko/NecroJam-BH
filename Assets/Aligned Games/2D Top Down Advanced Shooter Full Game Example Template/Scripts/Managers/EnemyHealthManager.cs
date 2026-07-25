@@ -26,10 +26,13 @@ namespace AlignedGames
 
         public void TakeDamage(int damage)
         {
+            // Reduce current health by the damage amount
             currentHealth -= damage;
 
+            // Spawn a blood decal to show damage visually
             SpawnBloodDecal();
 
+            // If health drops to zero or below, trigger death logic
             if (currentHealth <= 0)
                 Die();
         }
@@ -60,13 +63,10 @@ namespace AlignedGames
 
         private void Die()
         {
-            // Destroy the enemy game object to remove it from the scene
-            if (CelestialDirector.Instance != null)
-            {
-                CelestialDirector.Instance.UnregisterEnemy(
-                    GetComponent<CelestialEnemyAI>());
-            }
+            // Log message when enemy dies (useful for debugging)
+            Debug.Log("Enemy Died");
 
+            // Destroy the enemy game object to remove it from the scene
             Destroy(gameObject);
         }
     }
