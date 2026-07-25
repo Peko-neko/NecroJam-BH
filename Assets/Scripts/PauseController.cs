@@ -7,7 +7,11 @@ public class PauseController : MonoBehaviour
     [SerializeField] private GameObject pausePanel;
     [SerializeField] private GameObject confirmPopup;
     [SerializeField] private TMPro.TMP_Text confirmMessageText;
-    private bool isPaused = false;
+    
+    [SerializeField] private DialogueManager dialogueManager;
+
+    public bool IsPaused => isPaused;
+private bool isPaused = false;
 
     private enum ConfirmAction { None, Quit, MainMenu }
     private ConfirmAction pendingAction = ConfirmAction.None;
@@ -46,11 +50,13 @@ public class PauseController : MonoBehaviour
         UnlockCursor();
     }
 
-    public void Resume()
+public void Resume()
     {
         pausePanel.SetActive(false);
-        Time.timeScale = 1f;
         isPaused = false;
+
+        if (dialogueManager == null || !dialogueManager.IsActive)
+            Time.timeScale = 1f;
     }
 
     public void RestartStage()
