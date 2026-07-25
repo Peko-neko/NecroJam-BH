@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7460016682751377389}
   - component: {fileID: 1445655499506006476}
   - component: {fileID: 3355947499330725648}
-  - component: {fileID: 4788414895043569441}
   - component: {fileID: 2533500369771618619}
   m_Layer: 0
   m_Name: Main Camera
@@ -104,20 +103,6 @@ MonoBehaviour:
   maxLookAheadDistance: 5
   mouseRange: 9
   smoothingFactor: 250
---- !u!114 &4788414895043569441
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6837710497364304179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e680a598cb0ab2438546df3baedc5da, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxShakeMagnitude: 0.5
-  dampingSpeed: 1
 --- !u!114 &2533500369771618619
 MonoBehaviour:
   m_ObjectHideFlags: 0
