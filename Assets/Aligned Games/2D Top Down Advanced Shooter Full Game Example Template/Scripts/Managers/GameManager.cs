@@ -132,6 +132,13 @@ namespace AlignedGames
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+public void GoToMainMenu()
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu");
+        }
+
+
         // Quits the application
         public void QuitGame()
         {
