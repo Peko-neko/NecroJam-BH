@@ -13,19 +13,28 @@ MonoBehaviour:
   m_Name: TestSequence
   m_EditorClassIdentifier: Assembly-CSharp::DialogueSequence
   lines:
-  - character: {fileID: 11400000, guid: ddec90013d95c7b48a6952de7480f2af, type: 2}
+  - speakerName: Ava
     text: Hey... is someone there?
-    expression: Neutral
-    side: 1
-    typingSpeedOverride: -1
-  - character: {fileID: 11400000, guid: d9df4facfecbd4742834c1fcc762f12a, type: 2}
-    text: Just me. Didn't mean to startle you.
-    expression: Neutral
+    portrait: {fileID: 0}
+    portraitTint: {r: 0.55, g: 0.75, b: 1, a: 1}
     side: 0
     typingSpeedOverride: -1
-  - character: {fileID: 11400000, guid: ddec90013d95c7b48a6952de7480f2af, type: 2}
-    text: You scared me half to death!
-    expression: 
+  - speakerName: Rook
+    text: Just me. Didn't mean to startle you.
+    portrait: {fileID: 0}
+    portraitTint: {r: 1, g: 0.7, b: 0.55, a: 1}
     side: 1
+    typingSpeedOverride: -1
+  - speakerName: Ava
+    text: You scared me half to death!
+    portrait: {fileID: 0}
+    portraitTint: {r: 0.55, g: 0.75, b: 1, a: 1}
+    side: 0
+    typingSpeedOverride: -1
+  - speakerName: Ava
+    text: ...I really need to stop coming down here alone.
+    portrait: {fileID: 0}
+    portraitTint: {r: 0.55, g: 0.75, b: 1, a: 1}
+    side: 2
     typingSpeedOverride: -1
   defaultCharsPerSecond: 40

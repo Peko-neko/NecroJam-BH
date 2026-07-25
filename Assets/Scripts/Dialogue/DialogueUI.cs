@@ -54,21 +54,16 @@ public class DialogueUI : MonoBehaviour
     private void HandleLineChanged(DialogueLine line)
     {
         currentLine = line;
-        speakerNameText.text = line.character != null ? line.character.displayName : string.Empty;
+        speakerNameText.text = line.speakerName;
         advanceIndicator.SetActive(false);
-
-        Sprite portrait = line.character != null ? line.character.GetPortrait(line.expression) : null;
-        Color tint = line.character != null ? line.character.GetTint(line.expression) : Color.white;
-        float scale = line.character != null ? line.character.GetScale(line.expression) : 1f;
 
         if (line.side == DialogueLine.Side.Solo)
         {
             leftPortraitRoot.SetActive(false);
             rightPortraitRoot.SetActive(false);
             soloPortraitRoot.SetActive(true);
-            soloPortraitImage.sprite = portrait;
-            soloPortraitImage.color = tint;
-            soloPortraitImage.rectTransform.localScale = Vector3.one * scale;
+            soloPortraitImage.sprite = line.portrait;
+            soloPortraitImage.color = line.portraitTint;
             return;
         }
 
@@ -78,9 +73,8 @@ public class DialogueUI : MonoBehaviour
         {
             leftSeen = true;
             leftPortraitRoot.SetActive(true);
-            leftPortraitImage.sprite = portrait;
-            leftPortraitImage.color = tint * activeTint;
-            leftPortraitImage.rectTransform.localScale = Vector3.one * scale;
+            leftPortraitImage.sprite = line.portrait;
+            leftPortraitImage.color = line.portraitTint * activeTint;
 
             rightPortraitRoot.SetActive(rightSeen);
             if (rightSeen) rightPortraitImage.color = inactiveTint;
@@ -89,9 +83,8 @@ public class DialogueUI : MonoBehaviour
         {
             rightSeen = true;
             rightPortraitRoot.SetActive(true);
-            rightPortraitImage.sprite = portrait;
-            rightPortraitImage.color = tint * activeTint;
-            rightPortraitImage.rectTransform.localScale = Vector3.one * scale;
+            rightPortraitImage.sprite = line.portrait;
+            rightPortraitImage.color = line.portraitTint * activeTint;
 
             leftPortraitRoot.SetActive(leftSeen);
             if (leftSeen) leftPortraitImage.color = inactiveTint;
