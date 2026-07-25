@@ -101,10 +101,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2470517061109380361}
-  - component: {fileID: -2365151220216450254}
   - component: {fileID: 7113847255313280910}
   - component: {fileID: -8329216951011936591}
   - component: {fileID: 2429421470800479517}
+  - component: {fileID: 1442609394360949024}
   m_Layer: 9
   m_Name: EnemyBulletProjectile
   m_TagString: Bullet
@@ -128,56 +128,6 @@ Transform:
   - {fileID: 3752957867265667127}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &-2365151220216450254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1832802320288412073}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a575be96eed584a45982b006009713b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lifetime: 3
-  destroyOnImpact: 1
-  explosionEffectPrefab: {fileID: 1404934643135856115, guid: d912da0c81d0f32478b1251cff9169bd, type: 3}
-  hitEffectPrefab: {fileID: 8841401498067966524, guid: 63ef71ab6cdb3054687b5d78aa766989, type: 3}
-  bloodEffectPrefab: {fileID: 8841401498067966524, guid: ca9dfa7475015ac47b30a7b32c1a3c23, type: 3}
-  hitSprites:
-  - {fileID: 21300000, guid: b2183f3e9dc1a4d429e7bba0d1f72d42, type: 3}
-  - {fileID: 21300000, guid: 665510db63647e94895ba30081346ae1, type: 3}
-  - {fileID: 21300000, guid: 03009ba575fd69c4cbe7ec7c0ccda98a, type: 3}
-  - {fileID: 21300000, guid: 24c0f955ffcdb5d4e95f32d373710d8e, type: 3}
-  - {fileID: 21300000, guid: 4cee13863bc39714fb8510282645f41e, type: 3}
-  bloodSprites:
-  - {fileID: 21300000, guid: 5709d2654c305f944889567d194441e5, type: 3}
-  - {fileID: 21300000, guid: cc9d2ced4369523459738a9f3bcf30e9, type: 3}
-  - {fileID: 21300000, guid: 5c2172d4b30e403419388f2af5fc2bdd, type: 3}
-  - {fileID: 21300000, guid: 0899e681a7a701f45a55ce8e57e686eb, type: 3}
-  - {fileID: 21300000, guid: 89f022bfbe2bea648b55ca0c0323f503, type: 3}
-  obstaclehitSounds:
-  - {fileID: 8300000, guid: 183a6e37896ab82418a18e3922aa8984, type: 3}
-  - {fileID: 8300000, guid: 0212a5a945d281d4c98afd59d089416b, type: 3}
-  - {fileID: 8300000, guid: c7a69236433c6dc439f54bc035a7854f, type: 3}
-  - {fileID: 8300000, guid: 615b516e9abceaa44a40089d27a5f2e4, type: 3}
-  - {fileID: 8300000, guid: 424bcafaa0d68c24d8355770395b6f79, type: 3}
-  - {fileID: 8300000, guid: 767717a570cb24f43ae9b630c6330020, type: 3}
-  - {fileID: 8300000, guid: 8d5b1bfb17c25914ca39d69b1b9d6b78, type: 3}
-  - {fileID: 8300000, guid: e32480dca5da5db40bc94c5d7700bca8, type: 3}
-  enemyhitSounds:
-  - {fileID: 8300000, guid: 52378519c26ec1147abe6e80d07d8c9b, type: 3}
-  - {fileID: 8300000, guid: 7df7c1c8e1281724ab7acaa37c232c13, type: 3}
-  - {fileID: 8300000, guid: 97cf54e7e8dceb04ea76b8aa8034e2ab, type: 3}
-  - {fileID: 8300000, guid: ef5f31005a6681042b4106731fd7fa26, type: 3}
-  - {fileID: 8300000, guid: 38d60a9e58e51bf44b7feff6e3f66a15, type: 3}
-  - {fileID: 8300000, guid: e78baab9cabeb1847a61e3bf94b685a6, type: 3}
-  - {fileID: 8300000, guid: 3668dd5954a004e46b8b50a2017a8066, type: 3}
-  - {fileID: 8300000, guid: fe68501ae0be4ac438411398c086f4f3, type: 3}
-  - {fileID: 8300000, guid: 700aedbe16613624bbd1fdc86034e69d, type: 3}
-  - {fileID: 8300000, guid: b835c60c4eac74745bfe8a9bc92fd146, type: 3}
-  hitSoundVolume: 0.7
 --- !u!50 &7113847255313280910
 Rigidbody2D:
   serializedVersion: 5
@@ -239,8 +189,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 4, y: 1}
+  m_Offset: {x: 0.000000009007455, y: 0.07556002}
+  m_Size: {x: 4.0000014, y: 3.6852825}
   m_Direction: 1
 --- !u!82 &2429421470800479517
 AudioSource:
@@ -339,3 +289,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1442609394360949024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832802320288412073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 865bef4b0896d3a42972d6a8dddf1c05, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AlignedGames.CelestialBullet
+  damage: 1
+  lifeTime: 8
+  owner: {fileID: 0}
