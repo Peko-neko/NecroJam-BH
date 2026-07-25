@@ -14,6 +14,20 @@ namespace AlignedGames
         [SerializeField] private float knockbackForce = 5f; // Force applied to enemies when hit
         [SerializeField] private float meleeCooldown = 1f; // Time between allowed melee attacks
 
+        [Header("Block Settings")]
+        [SerializeField] private InputAction blockAction;
+        [SerializeField] private GameObject blockHitbox;
+        [SerializeField] private SpriteRenderer playerSprite;
+        [SerializeField] private Sprite idleSprite;
+        [SerializeField] private Sprite blockSprite;
+
+        [SerializeField] private AudioClip blockSound;
+
+        [SerializeField] private int powerPerBullet = 1;
+
+        private bool isBlocking = false;
+        private int storedPower = 0;
+
         [Header("Attack Animation")]
         [SerializeField] private Animator playerAnimator; // Animator to play melee animation
 
@@ -45,11 +59,13 @@ namespace AlignedGames
         private void OnEnable()
         {
             if (!meleeAction.enabled) meleeAction.Enable(); // Enable input action when script is enabled
+            blockAction.Enable();
         }
 
         private void OnDisable()
         {
             meleeAction.Disable(); // Disable input action when script is disabled
+            blockAction.Disable();
         }
 
         public void Start()
@@ -60,6 +76,7 @@ namespace AlignedGames
         private void Update()
         {
             HandleMeleeAttack(); // Check for input each frame
+            HandleBlock();
         }
 
         private void HandleMeleeAttack()
@@ -84,6 +101,47 @@ namespace AlignedGames
 
             StartCoroutine(ActivateMeleeHitbox()); // Enable melee hitbox temporarily
             StartCoroutine(StartCooldown()); // Start melee cooldown timer
+        }
+
+        private void HandleBlock()
+        {
+            if (blockAction.IsPressed())
+            {
+                if (!isBlocking)
+                    StartBlock();
+            }
+            else
+            {
+                if (isBlocking)
+                    EndBlock();
+            }
+        }
+
+        private void StartBlock()
+        {
+            isBlocking = true;
+
+            blockHitbox.SetActive(true);
+
+            GunToHide.SetActive(false);
+
+            if (playerAnimator != null)
+                playerAnimator.Play("Block");
+
+            if (playerSprite != null && blockSprite != null)
+                playerSprite.sprite = blockSprite;
+        }
+
+        private void EndBlock()
+        {
+            isBlocking = false;
+
+            blockHitbox.SetActive(false);
+
+            GunToHide.SetActive(true);
+
+            if (playerSprite != null && idleSprite != null)
+                playerSprite.sprite = idleSprite;
         }
 
         private IEnumerator ActivateMeleeHitbox()
@@ -116,6 +174,19 @@ namespace AlignedGames
 
         private void OnTriggerEnter2D(Collider2D collision)
         {
+
+            if (isBlocking && collision.CompareTag("Bullet"))
+            {
+                storedPower += powerPerBullet;
+
+                if (audioSource && blockSound)
+                    audioSource.PlayOneShot(blockSound);
+
+                Destroy(collision.gameObject);
+
+                return;
+            }
+
             // Rotation to make hit effects face correctly
             Quaternion oppositeRotation = Quaternion.LookRotation(Vector3.forward, -transform.up);
 
