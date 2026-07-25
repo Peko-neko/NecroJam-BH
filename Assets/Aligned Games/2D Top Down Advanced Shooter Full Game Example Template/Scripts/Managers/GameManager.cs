@@ -94,8 +94,7 @@ namespace AlignedGames
         // Called when player dies
         public void OnPlayerDeath()
         {
-            // Wait 3 seconds, then trigger death logic
-            Invoke(nameof(Death), 3f);
+            Invoke(nameof(Death), 0.5f);
         }
 
         // Activates the death screen and pauses the game
@@ -131,6 +130,13 @@ namespace AlignedGames
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
+
+public void GoToMainMenu()
+        {
+            Time.timeScale = 1f;
+            SceneManager.LoadScene("MainMenu");
+        }
+
 
         // Quits the application
         public void QuitGame()
