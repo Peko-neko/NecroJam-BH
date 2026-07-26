@@ -7,16 +7,32 @@ namespace AlignedGames
 {
     public class PlayerMeleeAttackBehaviour : MonoBehaviour
     {
-        [Header("Melee Settings")]
-        [SerializeField] private GameObject meleeHitbox; // The hitbox used to detect melee hits
-        [SerializeField] private float meleeDuration = 0.3f; // How long the melee hitbox stays active
-        [SerializeField] private int meleeDamage = 50; // Damage dealt by melee attack
-        [SerializeField] private float knockbackForce = 5f; // Force applied to enemies when hit
-        [SerializeField] private float meleeCooldown = 1f; // Time between allowed melee attacks
 
-        [Header("Block Settings")]
+        [SerializeField] private SpriteRenderer weaponRenderer;
+
+        [SerializeField] private float hitboxActiveTime = 0.2f;
+
+        [Header("Weapon Sprites")]
+        [SerializeField] private Sprite idleWeaponSprite;
+        [SerializeField] private Sprite blockWeaponSprite;
+
+        [Header("Weapon Animator")]
+        [SerializeField] private Animator weaponAnimator;
+
+        [Header("Melee")]
+        [SerializeField] private Transform attackPoint;
+        [SerializeField] private Vector2 attackSize = new Vector2(2f, 1f);
+        [SerializeField] private LayerMask meleeLayers;
+
+        [SerializeField] private int meleeDamage = 50;
+        [SerializeField] private float knockbackForce = 5f;
+        [SerializeField] private float meleeCooldown = 1f;
+        [SerializeField] private float attackDelay = 0.1f;
+
+        [Header("Blocking")]
         [SerializeField] private InputAction blockAction;
         [SerializeField] private GameObject blockHitbox;
+
         [SerializeField] private SpriteRenderer playerSprite;
         [SerializeField] private Sprite idleSprite;
         [SerializeField] private Sprite blockSprite;
@@ -25,86 +41,138 @@ namespace AlignedGames
 
         [SerializeField] private int powerPerBullet = 1;
 
-        private bool isBlocking = false;
-        private int storedPower = 0;
+        [Header("Guard")]
+        [SerializeField] private int maxGuard = 100;
+        [SerializeField] private int guardCostPerBullet = 20;
+        [SerializeField] private float guardRecoverDelay = 2f;
+        [SerializeField] private float guardRecoverRate = 40f;
+        [SerializeField] private float guardBreakDuration = 1.5f;
 
-        [Header("Attack Animation")]
-        [SerializeField] private Animator playerAnimator; // Animator to play melee animation
+        [SerializeField] private AudioClip guardBreakSound;
+        private float currentGuard;
+        private float lastGuardTime;
+        private bool guardBroken;
 
-        [Header("Sound Settings")]
-        [SerializeField] private AudioSource audioSource; // Audio source to play attack sounds
-        [SerializeField] private AudioClip[] attackSounds; // Array of possible attack sounds
+        [Header("Animation")]
+        [SerializeField] private Animator playerAnimator;
 
-        private HashSet<Collider2D> hitTargets = new HashSet<Collider2D>(); // Keeps track of already hit targets to avoid double hits
+        [Header("Audio")]
+        [SerializeField] private AudioSource audioSource;
+        [SerializeField] private AudioClip[] attackSounds;
 
-        [Header("Input Actions")]
-        public InputAction meleeAction; // Input action for melee attack
+        [Header("Effects")]
+        public GameObject hitEffectPrefab;
+        public GameObject bloodEffectPrefab;
 
-        private bool isCooldown = false; // Whether melee is on cooldown
+        public Sprite[] hitSprites;
+        public Sprite[] bloodSprites;
 
-        public GameObject hitEffectPrefab; // Visual effect prefab for hitting obstacles
-        public GameObject bloodEffectPrefab; // Visual effect prefab for hitting enemies (blood)
+        public AudioClip[] obstaclehitSounds;
+        public AudioClip[] enemyhitSounds;
+        public float hitSoundVolume = 0.7f;
 
-        [Header("Random Visuals")]
-        public Sprite[] hitSprites; // Possible sprites for hit effects on obstacles
-        public Sprite[] bloodSprites; // Possible sprites for blood effects on enemies
+        [Header("Input")]
+        public InputAction meleeAction;
 
-        [Header("Hit Sounds")]
-        public AudioClip[] obstaclehitSounds; // Sounds when hitting obstacles
-        public AudioClip[] enemyhitSounds; // Sounds when hitting enemies
-        public float hitSoundVolume = 0.7f; // Volume for hit sounds
+        private bool isCooldown;
+        private bool isBlocking;
 
-        public GameObject GunToHide; // Gun object to hide during melee attack
+        private int storedPower;
 
-        private void OnEnable()
+        private readonly HashSet<Collider2D> hitTargets = new();
+
+        void OnEnable()
         {
-            if (!meleeAction.enabled) meleeAction.Enable(); // Enable input action when script is enabled
+            if (!meleeAction.enabled)
+                meleeAction.Enable();
+
             blockAction.Enable();
         }
 
-        private void OnDisable()
+        void OnDisable()
         {
-            meleeAction.Disable(); // Disable input action when script is disabled
+            meleeAction.Disable();
             blockAction.Disable();
         }
 
-        public void Start()
+        void Start()
         {
-            meleeHitbox.SetActive(false); // Make sure the melee hitbox is off at start
+            currentGuard = maxGuard;
         }
 
-        private void Update()
+        void Update()
         {
-            HandleMeleeAttack(); // Check for input each frame
+            HandleMeleeAttack();
             HandleBlock();
+            RecoverGuard();
         }
 
-        private void HandleMeleeAttack()
+        void HandleMeleeAttack()
         {
-            // If melee button pressed and not on cooldown, perform attack
+            if (guardBroken)
+                return;
+
             if (meleeAction.WasPressedThisFrame() && !isCooldown)
-            {
                 PerformMeleeAttack();
-            }
         }
 
-        private void PerformMeleeAttack()
+        void PerformMeleeAttack()
         {
-            if (playerAnimator != null)
+            if (weaponAnimator)
+                weaponAnimator.Play("Melee", 0, 0f);
+
+            PlayAttackSound();
+
+            StartCoroutine(PerformAttack());
+            StartCoroutine(StartCooldown());
+        }
+
+
+        IEnumerator PerformAttack()
+        {
+            hitTargets.Clear();
+
+            yield return new WaitForSeconds(attackDelay);
+
+            attackPoint.gameObject.SetActive(true);
+
+            Collider2D[] hits = Physics2D.OverlapBoxAll(
+                attackPoint.position,
+                attackSize,
+                attackPoint.eulerAngles.z,
+                meleeLayers);
+
+            foreach (Collider2D hit in hits)
             {
-                playerAnimator.Play("Melee"); // Play melee animation
+                if (hitTargets.Contains(hit))
+                    continue;
+
+                hitTargets.Add(hit);
+
+                Vector2 dir = hit.transform.position - attackPoint.position;
+
+                Quaternion rotation = Quaternion.FromToRotation(
+                    Vector3.up,
+                    dir.normalized);
+
+                HandleHit(hit, rotation);
             }
 
-            PlayAttackSound(); // Play random attack sound
+            yield return new WaitForSeconds(hitboxActiveTime);
 
-            GunToHide.SetActive(false); // Hide the gun during melee
-
-            StartCoroutine(ActivateMeleeHitbox()); // Enable melee hitbox temporarily
-            StartCoroutine(StartCooldown()); // Start melee cooldown timer
+            attackPoint.gameObject.SetActive(false);
         }
 
-        private void HandleBlock()
+        void HandleBlock()
         {
+            if (guardBroken)
+            {
+                if (isBlocking)
+                    EndBlock();
+
+                return;
+            }
+
             if (blockAction.IsPressed())
             {
                 if (!isBlocking)
@@ -117,206 +185,307 @@ namespace AlignedGames
             }
         }
 
-        private void StartBlock()
+        void StartBlock()
         {
             isBlocking = true;
 
             blockHitbox.SetActive(true);
 
-            GunToHide.SetActive(false);
-
-            if (playerAnimator != null)
-                playerAnimator.Play("Block");
-
-            if (playerSprite != null && blockSprite != null)
-                playerSprite.sprite = blockSprite;
+            if (weaponRenderer != null)
+            {
+                weaponRenderer.enabled = true;
+                weaponRenderer.sprite = blockWeaponSprite;
+            }
         }
 
-        private void EndBlock()
+        void EndBlock()
         {
             isBlocking = false;
 
             blockHitbox.SetActive(false);
 
-            GunToHide.SetActive(true);
-
-            if (playerSprite != null && idleSprite != null)
-                playerSprite.sprite = idleSprite;
-        }
-
-        private IEnumerator ActivateMeleeHitbox()
-        {
-            hitTargets.Clear(); // Clear list of hit targets to avoid double hits in this attack
-            meleeHitbox.SetActive(true); // Activate hitbox
-            yield return new WaitForSeconds(meleeDuration); // Wait for melee duration
-            meleeHitbox.SetActive(false); // Disable hitbox
-        }
-
-        private IEnumerator StartCooldown()
-        {
-            isCooldown = true; // Start cooldown
-
-            yield return new WaitForSeconds(meleeCooldown / 2);
-            GunToHide.SetActive(true); // Re-enable gun halfway through cooldown
-
-            yield return new WaitForSeconds(meleeCooldown);
-            isCooldown = false; // End cooldown
-        }
-
-        private void PlayAttackSound()
-        {
-            if (audioSource != null && attackSounds.Length > 0)
+            if (weaponRenderer != null)
             {
-                AudioClip randomSound = attackSounds[Random.Range(0, attackSounds.Length)];
-                audioSource.PlayOneShot(randomSound); // Play a random attack sound
+                weaponRenderer.sprite = idleWeaponSprite;
             }
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        void RecoverGuard()
         {
-
-            if (isBlocking && collision.CompareTag("Bullet"))
-            {
-                storedPower += powerPerBullet;
-
-                if (audioSource && blockSound)
-                    audioSource.PlayOneShot(blockSound);
-
-                Destroy(collision.gameObject);
-
+            if (guardBroken)
                 return;
-            }
 
-            // Rotation to make hit effects face correctly
-            Quaternion oppositeRotation = Quaternion.LookRotation(Vector3.forward, -transform.up);
+            if (Time.time - lastGuardTime < guardRecoverDelay)
+                return;
 
-            if (!meleeHitbox.activeSelf) return;
-            if (hitTargets.Contains(collision)) return;
+            currentGuard =
+                Mathf.Min(
+                    maxGuard,
+                    currentGuard +
+                    guardRecoverRate *
+                    Time.deltaTime);
+        }
 
-            hitTargets.Add(collision);
+        IEnumerator GuardBreak()
+        {
+            guardBroken = true;
 
+            EndBlock();
+
+            if (audioSource && guardBreakSound)
+                audioSource.PlayOneShot(guardBreakSound);
+
+            if (playerAnimator)
+                playerAnimator.Play("Stunned");
+
+            yield return new WaitForSeconds(
+                guardBreakDuration);
+
+            currentGuard = maxGuard;
+
+            guardBroken = false;
+        }
+
+        IEnumerator StartCooldown()
+        {
+            isCooldown = true;
+
+            yield return new WaitForSeconds(
+                meleeCooldown * 0.5f);
+
+            yield return new WaitForSeconds(
+                meleeCooldown * 0.5f);
+
+            isCooldown = false;
+        }
+
+        private void HandleHit(Collider2D collision, Quaternion oppositeRotation)
+        {
             if (collision.CompareTag("Enemy"))
             {
-                // Deal damage
-                EnemyHealthManager enemyHealth = collision.GetComponent<EnemyHealthManager>();
+                EnemyHealthManager enemyHealth =
+                    collision.GetComponent<EnemyHealthManager>();
+
                 if (enemyHealth != null)
-                {
                     enemyHealth.TakeDamage(meleeDamage);
-                }
 
-                // Knockback
-                if (knockbackForce > 0 && collision.TryGetComponent<Rigidbody2D>(out Rigidbody2D rb))
+                if (knockbackForce > 0 &&
+                    collision.TryGetComponent(
+                        out Rigidbody2D rb))
                 {
-                    Vector2 knockbackDirection = (collision.transform.position - transform.position).normalized;
-                    rb.AddForce(knockbackDirection * knockbackForce, ForceMode2D.Impulse);
+                    Vector2 knockbackDirection =
+                        (collision.transform.position -
+                        transform.position).normalized;
+
+                    rb.AddForce(
+                        knockbackDirection * knockbackForce,
+                        ForceMode2D.Impulse);
                 }
 
-                // Alert AI
-                EnemyZombieAIManager zombieAI = collision.GetComponent<EnemyZombieAIManager>();
-                if (zombieAI != null)
-                    zombieAI.TriggerAggression();
-
-                HumanEnemyAIManager humanAI = collision.GetComponent<HumanEnemyAIManager>();
-                if (humanAI != null)
-                    humanAI.TriggerAggression();
-
-                // Blood effect
                 if (bloodEffectPrefab != null)
                 {
-                    GameObject blood = Instantiate(
-                        bloodEffectPrefab,
-                        collision.ClosestPoint(transform.position),
-                        oppositeRotation);
+                    GameObject blood =
+                        Instantiate(
+                            bloodEffectPrefab,
+                            collision.ClosestPoint(transform.position),
+                            oppositeRotation);
 
-                    TryAssignRandomSprite(blood, bloodSprites);
+                    TryAssignRandomSprite(
+                        blood,
+                        bloodSprites);
                 }
 
                 PlayRandomEnemyHitSound();
             }
-            else if (collision.CompareTag("Obstacle") || collision.CompareTag("Wall"))
+            else if (
+                collision.CompareTag("Obstacle") ||
+                collision.CompareTag("Wall"))
             {
                 if (hitEffectPrefab != null)
                 {
-                    GameObject hit = Instantiate(
-                        hitEffectPrefab,
-                        collision.ClosestPoint(transform.position),
-                        oppositeRotation);
+                    GameObject hit =
+                        Instantiate(
+                            hitEffectPrefab,
+                            collision.ClosestPoint(transform.position),
+                            oppositeRotation);
 
-                    TryAssignRandomSprite(hit, hitSprites);
+                    TryAssignRandomSprite(
+                        hit,
+                        hitSprites);
                 }
 
                 PlayRandomObstacleHitSound();
             }
             else if (collision.CompareTag("Bullet"))
             {
-                // Spawn slash impact
                 if (hitEffectPrefab != null)
                 {
-                    GameObject hit = Instantiate(
-                        hitEffectPrefab,
-                        collision.transform.position,
-                        oppositeRotation);
+                    GameObject hit =
+                        Instantiate(
+                            hitEffectPrefab,
+                            collision.transform.position,
+                            oppositeRotation);
 
-                    TryAssignRandomSprite(hit, hitSprites);
+                    TryAssignRandomSprite(
+                        hit,
+                        hitSprites);
                 }
 
                 PlayRandomObstacleHitSound();
 
-                // Destroy the bullet
                 Destroy(collision.gameObject);
             }
         }
 
-        private void TryAssignRandomSprite(GameObject obj, Sprite[] spriteArray)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (spriteArray != null && spriteArray.Length > 0)
+            if (!isBlocking)
+                return;
+
+            if (!collision.CompareTag("Bullet"))
+                return;
+
+            storedPower += powerPerBullet;
+
+            currentGuard -= guardCostPerBullet;
+            lastGuardTime = Time.time;
+
+            if (audioSource && blockSound)
+                audioSource.PlayOneShot(blockSound);
+
+            Destroy(collision.gameObject);
+
+            if (currentGuard <= 0f)
+                StartCoroutine(GuardBreak());
+        }
+
+        private void PlayAttackSound()
+        {
+            if (audioSource == null)
+                return;
+
+            if (attackSounds == null ||
+                attackSounds.Length == 0)
+                return;
+
+            AudioClip clip =
+                attackSounds[
+                    Random.Range(
+                        0,
+                        attackSounds.Length)];
+
+            audioSource.PlayOneShot(clip);
+        }
+
+        private void TryAssignRandomSprite(
+            GameObject obj,
+            Sprite[] spriteArray)
+        {
+            if (spriteArray == null)
+                return;
+
+            if (spriteArray.Length == 0)
+                return;
+
+            SpriteRenderer sr =
+                obj.GetComponentInChildren<SpriteRenderer>();
+
+            if (sr != null)
             {
-                SpriteRenderer sr = obj.GetComponentInChildren<SpriteRenderer>();
-                if (sr != null)
-                    sr.sprite = spriteArray[Random.Range(0, spriteArray.Length)]; // Assign a random sprite from array
+                sr.sprite =
+                    spriteArray[
+                        Random.Range(
+                            0,
+                            spriteArray.Length)];
             }
         }
 
         private void PlayRandomEnemyHitSound()
         {
-            if (enemyhitSounds != null && enemyhitSounds.Length > 0)
-            {
-                AudioClip clip = enemyhitSounds[Random.Range(0, enemyhitSounds.Length)];
-                if (clip == null) return;
+            if (enemyhitSounds == null)
+                return;
 
-                // Create temporary audio source for 2D sound
-                GameObject audioObj = new GameObject("TempEnemyHitAudio");
-                audioObj.transform.position = transform.position;
+            if (enemyhitSounds.Length == 0)
+                return;
 
-                AudioSource source = audioObj.AddComponent<AudioSource>();
-                source.clip = clip;
-                source.volume = hitSoundVolume;
-                source.spatialBlend = 0f; // 0 = 2D sound
-                source.Play();
+            AudioClip clip =
+                enemyhitSounds[
+                    Random.Range(
+                        0,
+                        enemyhitSounds.Length)];
 
-                Destroy(audioObj, clip.length); // Destroy after clip finishes
-            }
+            if (clip == null)
+                return;
+
+            GameObject audioObj =
+                new GameObject("TempEnemyHitAudio");
+
+            audioObj.transform.position =
+                transform.position;
+
+            AudioSource source =
+                audioObj.AddComponent<AudioSource>();
+
+            source.clip = clip;
+            source.volume = hitSoundVolume;
+            source.spatialBlend = 0f;
+
+            source.Play();
+
+            Destroy(audioObj, clip.length);
         }
 
         private void PlayRandomObstacleHitSound()
         {
-            if (obstaclehitSounds != null && obstaclehitSounds.Length > 0)
-            {
-                AudioClip clip = obstaclehitSounds[Random.Range(0, obstaclehitSounds.Length)];
-                if (clip == null) return;
+            if (obstaclehitSounds == null)
+                return;
 
-                // Create temporary audio source for 2D sound
-                GameObject audioObj = new GameObject("TempObstacleHitAudio");
-                audioObj.transform.position = transform.position;
+            if (obstaclehitSounds.Length == 0)
+                return;
 
-                AudioSource source = audioObj.AddComponent<AudioSource>();
-                source.clip = clip;
-                source.volume = hitSoundVolume;
-                source.spatialBlend = 0f; // 0 = 2D sound
-                source.Play();
+            AudioClip clip =
+                obstaclehitSounds[
+                    Random.Range(
+                        0,
+                        obstaclehitSounds.Length)];
 
-                Destroy(audioObj, clip.length); // Destroy after clip finishes
-            }
+            if (clip == null)
+                return;
+
+            GameObject audioObj =
+                new GameObject("TempObstacleHitAudio");
+
+            audioObj.transform.position =
+                transform.position;
+
+            AudioSource source =
+                audioObj.AddComponent<AudioSource>();
+
+            source.clip = clip;
+            source.volume = hitSoundVolume;
+            source.spatialBlend = 0f;
+
+            source.Play();
+
+            Destroy(audioObj, clip.length);
+        }
+
+        private void OnDrawGizmosSelected()
+        {
+            if (attackPoint == null)
+                return;
+
+            Gizmos.color = Color.red;
+
+            Gizmos.matrix =
+                Matrix4x4.TRS(
+                    attackPoint.position,
+                    attackPoint.rotation,
+                    Vector3.one);
+
+            Gizmos.DrawWireCube(
+                Vector3.zero,
+                attackSize);
         }
     }
 }

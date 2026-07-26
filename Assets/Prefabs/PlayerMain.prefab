@@ -110,7 +110,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 490990976339635471, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       propertyPath: m_Name
-      value: Player Variant
+      value: PlayerMain
       objectReference: {fileID: 0}
     - target: {fileID: 1472583033507759624, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       propertyPath: maxArmor
@@ -175,6 +175,10 @@ PrefabInstance:
     - target: {fileID: 8444562364786468373, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       propertyPath: meleeDuration
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8444562364786468373, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
+      propertyPath: blockAction.m_Name
+      value: Block
       objectReference: {fileID: 0}
     - target: {fileID: 8444562364786468373, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
       propertyPath: enemyhitSounds.Array.size
@@ -364,7 +368,8 @@ PrefabInstance:
       propertyPath: 'rocketLauncherReloadClips.Array.data[1]'
       value: 
       objectReference: {fileID: 8300000, guid: 88507181bc8c6814b9e4e659c8ead084, type: 3}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7163464323883466628, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7590096213035684021, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}
     - {fileID: 3232076041922762270, guid: 68af5cb8095a73f458e0d21fe307e70c, type: 3}

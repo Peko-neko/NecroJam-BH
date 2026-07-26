@@ -54,15 +54,6 @@ namespace AlignedGames
                 if (enemyHealth != null)
                     enemyHealth.TakeDamage(damage);
 
-                // Trigger AI aggression if available
-                var zombieAI = collision.GetComponent<EnemyZombieAIManager>();
-                if (zombieAI != null)
-                    zombieAI.TriggerAggression();
-
-                var humanAI = collision.GetComponent<HumanEnemyAIManager>();
-                if (humanAI != null)
-                    humanAI.TriggerAggression();
-
                 // Create explosion effect if assigned
                 if (explosionEffectPrefab != null)
                     Instantiate(explosionEffectPrefab, transform.position, oppositeRotation);
