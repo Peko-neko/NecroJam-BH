@@ -136,13 +136,29 @@ namespace AlignedGames
 
             attackPoint.gameObject.SetActive(true);
 
-            float timer = 0f;
+            Collider2D[] hits = Physics2D.OverlapBoxAll(
+                attackPoint.position,
+                attackSize,
+                attackPoint.eulerAngles.z,
+                meleeLayers);
 
-            while (timer < hitboxActiveTime)
+            foreach (Collider2D hit in hits)
             {
-                timer += Time.deltaTime;
-                yield return null;
+                if (hitTargets.Contains(hit))
+                    continue;
+
+                hitTargets.Add(hit);
+
+                Vector2 dir = hit.transform.position - attackPoint.position;
+
+                Quaternion rotation = Quaternion.FromToRotation(
+                    Vector3.up,
+                    dir.normalized);
+
+                HandleHit(hit, rotation);
             }
+
+            yield return new WaitForSeconds(hitboxActiveTime);
 
             attackPoint.gameObject.SetActive(false);
         }
