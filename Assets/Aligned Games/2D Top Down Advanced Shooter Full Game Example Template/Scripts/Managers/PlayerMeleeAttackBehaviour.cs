@@ -10,6 +10,8 @@ namespace AlignedGames
 
         [SerializeField] private SpriteRenderer weaponRenderer;
 
+        [SerializeField] private float hitboxActiveTime = 0.2f;
+
         [Header("Weapon Sprites")]
         [SerializeField] private Sprite idleWeaponSprite;
         [SerializeField] private Sprite blockWeaponSprite;
@@ -125,35 +127,24 @@ namespace AlignedGames
             StartCoroutine(StartCooldown());
         }
 
+
         IEnumerator PerformAttack()
         {
-            yield return new WaitForSeconds(attackDelay);
-
             hitTargets.Clear();
 
-            Collider2D[] hits =
-                Physics2D.OverlapBoxAll(
-                    attackPoint.position,
-                    attackSize,
-                    attackPoint.eulerAngles.z,
-                    meleeLayers);
+            yield return new WaitForSeconds(attackDelay);
 
-            Quaternion rotation =
-                Quaternion.LookRotation(
-                    Vector3.forward,
-                    -transform.up);
+            attackPoint.gameObject.SetActive(true);
 
-            foreach (Collider2D hit in hits)
+            float timer = 0f;
+
+            while (timer < hitboxActiveTime)
             {
-                if (hitTargets.Contains(hit))
-                    continue;
-
-                hitTargets.Add(hit);
-
-                HandleHit(hit, rotation);
+                timer += Time.deltaTime;
+                yield return null;
             }
 
-            weaponAnimator.Play("Idle");
+            attackPoint.gameObject.SetActive(false);
         }
 
         void HandleBlock()
@@ -252,9 +243,7 @@ namespace AlignedGames
             isCooldown = false;
         }
 
-        private void HandleHit(
-    Collider2D collision,
-    Quaternion oppositeRotation)
+        private void HandleHit(Collider2D collision, Quaternion oppositeRotation)
         {
             if (collision.CompareTag("Enemy"))
             {
