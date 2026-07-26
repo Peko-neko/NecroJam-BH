@@ -1,0 +1,354 @@
+fileFormatVersion: 2
+guid: 8b698be4f7034fd4ea260e427e900a28
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 4910896196106614972
+    second: AngelThroneSpriteSheet_0
+  - first:
+      213: -4676803154032033715
+    second: AngelThroneSpriteSheet_1
+  - first:
+      213: 2962982603919007844
+    second: AngelThroneSpriteSheet_2
+  - first:
+      213: -8133834575764777345
+    second: AngelThroneSpriteSheet_3
+  - first:
+      213: -3051856704444593423
+    second: AngelThroneSpriteSheet_4
+  - first:
+      213: -1396357217247291600
+    second: AngelThroneSpriteSheet_5
+  - first:
+      213: 4911814593960126123
+    second: AngelThroneSpriteSheet_6
+  - first:
+      213: 3115664929996346706
+    second: AngelThroneSpriteSheet_7
+  - first:
+      213: -4639129149537760990
+    second: AngelThroneSpriteSheet_8
+  - first:
+      213: 7573181558442823174
+    second: AngelThroneSpriteSheet_9
+  - first:
+      213: 8167203027391511337
+    second: AngelThroneSpriteSheet_10
+  - first:
+      213: -8249861325992909054
+    second: AngelThroneSpriteSheet_11
+  - first:
+      213: -6279753115775934354
+    second: AngelThroneSpriteSheet_12
+  - first:
+      213: 4177008644836003983
+    second: AngelThroneSpriteSheet_13
+  - first:
+      213: 4543580395529643938
+    second: AngelThroneSpriteSheet_14
+  - first:
+      213: -1062709214532763016
+    second: AngelThroneSpriteSheet_15
+  - first:
+      213: -4742587316601234625
+    second: AngelThroneSpriteSheet_16
+  - first:
+      213: 3117687003708999214
+    second: AngelThroneSpriteSheet_17
+  - first:
+      213: -1495091713582203547
+    second: AngelThroneSpriteSheet_18
+  - first:
+      213: -749763896070927347
+    second: AngelThroneSpriteSheet_19
+  - first:
+      213: -1299522845529578608
+    second: AngelThroneSpriteSheet_20
+  - first:
+      213: -603715362581015271
+    second: AngelThroneSpriteSheet_21
+  - first:
+      213: -1882903197841928291
+    second: AngelThroneSpriteSheet_22
+  - first:
+      213: 2472071619889418699
+    second: AngelThroneSpriteSheet_23
+  - first:
+      213: -2418165710657465353
+    second: AngelThroneSpriteSheet_24
+  - first:
+      213: -6366406366381152917
+    second: AngelThroneSpriteSheet_25
+  - first:
+      213: -4064338272430266867
+    second: AngelThroneSpriteSheet_26
+  - first:
+      213: 1219326575559359381
+    second: AngelThroneSpriteSheet_27
+  - first:
+      213: 4563746848819830393
+    second: AngelThroneSpriteSheet_28
+  - first:
+      213: 4675207250752542793
+    second: AngelThroneSpriteSheet_29
+  - first:
+      213: 8906010650473820990
+    second: AngelThroneSpriteSheet_30
+  - first:
+      213: -5491420564614608398
+    second: AngelThroneSpriteSheet_31
+  - first:
+      213: 2329469276035351936
+    second: AngelThroneSpriteSheet_32
+  - first:
+      213: -775951458428933404
+    second: AngelThroneSpriteSheet_33
+  - first:
+      213: 9053806507526423046
+    second: AngelThroneSpriteSheet_34
+  - first:
+      213: -8436799239425902668
+    second: AngelThroneSpriteSheet_35
+  - first:
+      213: 1772729979548264838
+    second: AngelThroneSpriteSheet_36
+  - first:
+      213: -1053178614628548536
+    second: AngelThroneSpriteSheet_37
+  - first:
+      213: 1136429753173661945
+    second: AngelThroneSpriteSheet_38
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: AngelThroneSpriteSheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 355
+        height: 337
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cb870c14212072440800000000000000
+      internalID: 4910896196106614972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngelThroneSpriteSheet_1
+      rect:
+        serializedVersion: 2
+        x: 355
+        y: 0
+        width: 355
+        height: 337
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d408e776f48a81fb0800000000000000
+      internalID: -4676803154032033715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngelThroneSpriteSheet_2
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 0
+        width: 355
+        height: 337
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 460214ecaf0ae1920800000000000000
+      internalID: 2962982603919007844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: AngelThroneSpriteSheet_3
+      rect:
+        serializedVersion: 2
+        x: 1065
+        y: 0
+        width: 355
+        height: 337
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f7610c95c80de1f80800000000000000
+      internalID: -8133834575764777345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: c9a4d743726f91945b9c704f459be5c0
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":355.0,"y":337.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      AngelThroneSpriteSheet_0: 4910896196106614972
+      AngelThroneSpriteSheet_1: -4676803154032033715
+      AngelThroneSpriteSheet_2: 2962982603919007844
+      AngelThroneSpriteSheet_3: -8133834575764777345
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

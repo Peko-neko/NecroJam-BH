@@ -316,14 +316,6 @@ MonoBehaviour:
     bulletSpeed: 15
     magazineSize: 8
     reloadTime: 2
-  - name: Rocket Launcher
-    damage: 50
-    bulletsPerShot: 1
-    spreadAngle: 1
-    shootRate: 3
-    bulletSpeed: 15
-    magazineSize: 4
-    reloadTime: 3
   weaponPrefabs: []
   Pistol: 0
   SubMachineGun: 1

@@ -282,18 +282,6 @@ namespace AlignedGames
                         ForceMode2D.Impulse);
                 }
 
-                EnemyZombieAIManager zombieAI =
-                    collision.GetComponent<EnemyZombieAIManager>();
-
-                if (zombieAI != null)
-                    zombieAI.TriggerAggression();
-
-                HumanEnemyAIManager humanAI =
-                    collision.GetComponent<HumanEnemyAIManager>();
-
-                if (humanAI != null)
-                    humanAI.TriggerAggression();
-
                 if (bloodEffectPrefab != null)
                 {
                     GameObject blood =

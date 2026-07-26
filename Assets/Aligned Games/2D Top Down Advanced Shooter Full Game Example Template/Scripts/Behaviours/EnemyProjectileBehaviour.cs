@@ -40,7 +40,9 @@ namespace AlignedGames
         // Called when the bullet collides with something
         private void OnTriggerEnter2D(Collider2D collision)
         {
-            // Calculate visual rotation for effects
+            if (collision.CompareTag("Enemy"))
+                return;
+
             Quaternion oppositeRotation = Quaternion.LookRotation(Vector3.forward, -transform.up);
 
             // If bullet hits the player
@@ -70,26 +72,6 @@ namespace AlignedGames
                     Destroy(gameObject);
 
                 return; // stop further processing for this collision
-            }
-
-            // If bullet hits an enemy (e.g., wake nearby AI)
-            else if (collision.CompareTag("Enemy"))
-            {
-                // Trigger aggression in any nearby enemies or AI systems
-                var zombieAI = collision.GetComponent<EnemyZombieAIManager>();
-                if (zombieAI != null)
-                    zombieAI.TriggerAggression();
-
-                var humanAI = collision.GetComponent<HumanEnemyAIManager>();
-                if (humanAI != null)
-                    humanAI.TriggerAggression();
-
-                // Deal damage if the enemy has a health manager
-                var enemyHealth = collision.GetComponent<EnemyHealthManager>();
-                if (enemyHealth != null)
-                    enemyHealth.TakeDamage(damage);
-
-                return; // no further effects for enemy hits in this script
             }
 
             // If bullet hits environment like a wall or obstacle

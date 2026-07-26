@@ -79,44 +79,6 @@ namespace AlignedGames
                     }
                 }
 
-                // If the target is a zombie enemy, apply damage and trigger aggression
-                EnemyZombieAIManager zombieAI = col.GetComponentInParent<EnemyZombieAIManager>();
-                if (zombieAI != null)
-                {
-                    EnemyHealthManager enemyHealth =
-                        col.GetComponentInParent<EnemyHealthManager>() ??
-                        col.GetComponent<EnemyHealthManager>() ??
-                        col.GetComponentInChildren<EnemyHealthManager>();
-
-                    if (enemyHealth != null)
-                    {
-                        if (logHits) Debug.Log($"[Explosion2D] Zombie enemy hit: {col.name}", col);
-                        enemyHealth.TakeDamage(damage);
-                    }
-
-                    zombieAI.TriggerAggression();
-                    continue; // avoid double-processing below
-                }
-
-                // If the target is a human enemy, apply damage and trigger aggression
-                HumanEnemyAIManager humanAI = col.GetComponentInParent<HumanEnemyAIManager>();
-                if (humanAI != null)
-                {
-                    EnemyHealthManager enemyHealth =
-                        col.GetComponentInParent<EnemyHealthManager>() ??
-                        col.GetComponent<EnemyHealthManager>() ??
-                        col.GetComponentInChildren<EnemyHealthManager>();
-
-                    if (enemyHealth != null)
-                    {
-                        if (logHits) Debug.Log($"[Explosion2D] Human enemy hit: {col.name}", col);
-                        enemyHealth.TakeDamage(damage);
-                    }
-
-                    humanAI.TriggerAggression();
-                    continue; // avoid double-processing below
-                }
-
                 // Try to damage the object if they have a health component
                 // (Use local/parent/children so it works whether the collider is on a child or root)
                 var objectHealth =
