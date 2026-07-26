@@ -7,6 +7,16 @@ namespace AlignedGames
 {
     public class PlayerMeleeAttackBehaviour : MonoBehaviour
     {
+
+        [SerializeField] private SpriteRenderer weaponRenderer;
+
+        [Header("Weapon Sprites")]
+        [SerializeField] private Sprite idleWeaponSprite;
+        [SerializeField] private Sprite blockWeaponSprite;
+
+        [Header("Weapon Animator")]
+        [SerializeField] private Animator weaponAnimator;
+
         [Header("Melee")]
         [SerializeField] private Transform attackPoint;
         [SerializeField] private Vector2 attackSize = new Vector2(2f, 1f);
@@ -59,8 +69,6 @@ namespace AlignedGames
         public AudioClip[] enemyhitSounds;
         public float hitSoundVolume = 0.7f;
 
-        public GameObject GunToHide;
-
         [Header("Input")]
         public InputAction meleeAction;
 
@@ -108,12 +116,10 @@ namespace AlignedGames
 
         void PerformMeleeAttack()
         {
-            if (playerAnimator)
-                playerAnimator.Play("Melee");
+            if (weaponAnimator)
+                weaponAnimator.Play("Melee", 0, 0f);
 
             PlayAttackSound();
-
-            GunToHide.SetActive(false);
 
             StartCoroutine(PerformAttack());
             StartCoroutine(StartCooldown());
@@ -146,6 +152,8 @@ namespace AlignedGames
 
                 HandleHit(hit, rotation);
             }
+
+            weaponAnimator.Play("Idle");
         }
 
         void HandleBlock()
@@ -176,13 +184,11 @@ namespace AlignedGames
 
             blockHitbox.SetActive(true);
 
-            GunToHide.SetActive(false);
-
-            if (playerAnimator)
-                playerAnimator.Play("Block");
-
-            if (playerSprite && blockSprite)
-                playerSprite.sprite = blockSprite;
+            if (weaponRenderer != null)
+            {
+                weaponRenderer.enabled = true;
+                weaponRenderer.sprite = blockWeaponSprite;
+            }
         }
 
         void EndBlock()
@@ -191,10 +197,10 @@ namespace AlignedGames
 
             blockHitbox.SetActive(false);
 
-            GunToHide.SetActive(true);
-
-            if (playerSprite && idleSprite)
-                playerSprite.sprite = idleSprite;
+            if (weaponRenderer != null)
+            {
+                weaponRenderer.sprite = idleWeaponSprite;
+            }
         }
 
         void RecoverGuard()
@@ -239,8 +245,6 @@ namespace AlignedGames
 
             yield return new WaitForSeconds(
                 meleeCooldown * 0.5f);
-
-            GunToHide.SetActive(true);
 
             yield return new WaitForSeconds(
                 meleeCooldown * 0.5f);
