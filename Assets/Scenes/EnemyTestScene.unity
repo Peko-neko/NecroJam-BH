@@ -8904,8 +8904,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1637994065166559749, guid: e67596fc2cb76f64dab859055f2b7d60, type: 3}
+      propertyPath: blockHitbox
+      value: 
+      objectReference: {fileID: 146444873}
+    - target: {fileID: 1637994065166559749, guid: e67596fc2cb76f64dab859055f2b7d60, type: 3}
+      propertyPath: playerSprite
+      value: 
+      objectReference: {fileID: 1851473937}
+    - target: {fileID: 1637994065166559749, guid: e67596fc2cb76f64dab859055f2b7d60, type: 3}
       propertyPath: blockAction.m_Name
       value: Block
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637994065166559749, guid: e67596fc2cb76f64dab859055f2b7d60, type: 3}
+      propertyPath: meleeAction.m_SingletonActionBindings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637994065166559749, guid: e67596fc2cb76f64dab859055f2b7d60, type: 3}
+      propertyPath: meleeAction.m_SingletonActionBindings.Array.data[0].m_Id
+      value: 94da83e7-bd93-41da-b70b-26fef7f7d8a4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1637994065166559749, guid: e67596fc2cb76f64dab859055f2b7d60, type: 3}
+      propertyPath: meleeAction.m_SingletonActionBindings.Array.data[0].m_Path
+      value: <Mouse>/leftButton
       objectReference: {fileID: 0}
     - target: {fileID: 2060480854660012451, guid: e67596fc2cb76f64dab859055f2b7d60, type: 3}
       propertyPath: m_LocalPosition.x
@@ -9605,6 +9625,11 @@ Material:
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
+--- !u!212 &1851473937 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 7374286068022807161, guid: e67596fc2cb76f64dab859055f2b7d60, type: 3}
+  m_PrefabInstance: {fileID: 1709905315}
+  m_PrefabAsset: {fileID: 0}
 --- !u!21 &1855716527
 Material:
   serializedVersion: 8
