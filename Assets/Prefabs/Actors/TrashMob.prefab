@@ -40,9 +40,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2012629691219308118}
-  - component: {fileID: 8836016373429220048}
-  - component: {fileID: 7399186860118152930}
-  - component: {fileID: 3224562753497435080}
   - component: {fileID: 8724150859530584765}
   - component: {fileID: 2757448433480222326}
   - component: {fileID: 8553515178065640573}
@@ -72,61 +69,6 @@ Transform:
   - {fileID: 1900271854356542472}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 569.999}
---- !u!114 &8836016373429220048
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060257422391116121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abf2b01911b10a54ea1ecca3500038b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 100
-  bloodDecalPrefab: {fileID: 6307287802443523324, guid: 56e56464214c43144ba0f92fa26c1cdd, type: 3}
-  bloodDecalScaleRange: {x: 0.8, y: 2.5}
-  bloodDecalRotationRange: {x: 0, y: 360}
-  sortingOrder: 1
-  decalLifetime: 5
-  fadeDuration: 3
---- !u!114 &7399186860118152930
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060257422391116121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d47d115b34ce55049bf78c438fa2f0cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  shootRange: 15
-  stopRange: 15
-  rotationSpeed: 4
-  firePoint: {fileID: 1900271854356542472}
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
---- !u!114 &3224562753497435080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5060257422391116121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48fba7301356df2439a53faa34fa6cc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1832802320288412073, guid: ecec54edabb0d6e4db2d2e67436deab4, type: 3}
-  bulletSpeed: 15
-  damage: 5
-  shootRate: 0.2
 --- !u!50 &8724150859530584765
 Rigidbody2D:
   serializedVersion: 5

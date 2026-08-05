@@ -758,7 +758,6 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
-  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -828,7 +827,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.11320752, g: 0.11320752, b: 0.11320752, a: 0}
+  m_BackGroundColor: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -884,24 +883,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &519420033
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b9fda894a954c34a999c083a5db7b65, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AlignedGames.PlayerCameraManager
-  target: {fileID: 1379931238}
-  followSpeed: 5
-  followOffset: {x: 0, y: 0}
-  maxLookAheadDistance: 3
-  mouseRange: 9
-  smoothingFactor: 250
 --- !u!114 &530100659 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1146546964699234220, guid: 48b03281415b339448bcb5f9f10746ab, type: 3}
@@ -2183,11 +2164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1379931238 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6990381713993458038, guid: 79eef88f635263d4b98b7d5342fb828c, type: 3}
-  m_PrefabInstance: {fileID: 1610196622}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1407702654 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8979676355937732992, guid: 21fc5053edb7bf24598f42e177fbb484, type: 3}
@@ -3283,7 +3259,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4214231460895856162, guid: 21fc5053edb7bf24598f42e177fbb484, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2613093460848897797, guid: 21fc5053edb7bf24598f42e177fbb484, type: 3}

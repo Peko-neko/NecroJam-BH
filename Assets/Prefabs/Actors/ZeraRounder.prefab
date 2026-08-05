@@ -9,9 +9,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2446492547440577927}
-  - component: {fileID: 5014928841061141911}
-  - component: {fileID: 3123828521516103852}
-  - component: {fileID: 7327207545837305353}
   - component: {fileID: 9172068660874289810}
   - component: {fileID: 4406944251190019327}
   - component: {fileID: 4576908403107473313}
@@ -40,61 +37,6 @@ Transform:
   - {fileID: 8540229870441311128}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5014928841061141911
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439672240173747708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abf2b01911b10a54ea1ecca3500038b7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 200
-  bloodDecalPrefab: {fileID: 6307287802443523324, guid: 56e56464214c43144ba0f92fa26c1cdd, type: 3}
-  bloodDecalScaleRange: {x: 0.8, y: 2.5}
-  bloodDecalRotationRange: {x: 0, y: 360}
-  sortingOrder: 1
-  decalLifetime: 5
-  fadeDuration: 3
---- !u!114 &3123828521516103852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439672240173747708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48fba7301356df2439a53faa34fa6cc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AlignedGames.HumanEnemyWeaponManager
-  bulletPrefab: {fileID: 1832802320288412073, guid: ecec54edabb0d6e4db2d2e67436deab4, type: 3}
-  bulletSpeed: 8
-  damage: 5
-  shootRate: 0.2
---- !u!114 &7327207545837305353
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1439672240173747708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d47d115b34ce55049bf78c438fa2f0cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AlignedGames.HumanEnemyAIManager
-  speed: 2
-  shootRange: 10
-  stopRange: 10
-  rotationSpeed: 2
-  firePoint: {fileID: 8540229870441311128}
-  obstacleMask:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!50 &9172068660874289810
 Rigidbody2D:
   serializedVersion: 5

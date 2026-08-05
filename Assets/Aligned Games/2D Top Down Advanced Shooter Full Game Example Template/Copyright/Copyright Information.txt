@@ -1,9 +1,0 @@
-All fonts in this package are sourced by :
-
-https://www.fontspace.com/
-
-Under the Commercial SIL OFL Licence (Open Font License)
-
-These licences are open source and free for any use.
-
-All the other assets in this package is made by me Johannes Nienaber for sale within this package.
