@@ -11,7 +11,7 @@ namespace AlignedGames
         void Update()
         {
             // Try to find the GameManager in the scene (you can optimize by caching this)
-            var gameManager = FindObjectOfType<GameManager>();
+            var gameManager = FindAnyObjectByType<GameManager>();
 
             // If any menu is open, hide the UI element
             if (gameManager != null && gameManager.IsAnyMenuOpen)

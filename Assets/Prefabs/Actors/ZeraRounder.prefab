@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AlignedGames.HumanEnemyWeaponManager
   bulletPrefab: {fileID: 1832802320288412073, guid: ecec54edabb0d6e4db2d2e67436deab4, type: 3}
-  bulletSpeed: 4
+  bulletSpeed: 8
   damage: 5
   shootRate: 0.2
 --- !u!114 &7327207545837305353
@@ -303,7 +303,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_MaskInteraction: 0
   m_Sprite: {fileID: -814495789, guid: a6e027119b2c05e42807da8ba3a8658c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

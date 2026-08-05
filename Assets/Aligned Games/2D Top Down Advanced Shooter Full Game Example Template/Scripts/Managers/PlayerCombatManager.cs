@@ -55,6 +55,8 @@ namespace AlignedGames
 
         // Removed the unused Ammo struct
 
+        [SerializeField] private Transform playerSprite;
+
         [Header("Weapon Slots")]
         public GameObject defaultBulletPrefab; // Consider if still needed with Resource loading
         public TextMeshProUGUI weaponNameText;
@@ -106,16 +108,10 @@ namespace AlignedGames
         [SerializeField] private Sprite[] selectedWeaponSprites; // Sprites for each weapon type (held in hand)
         [SerializeField] private SpriteRenderer heldWeaponRenderer; // The SpriteRenderer for the held weapon
 
+        [SerializeField] private Transform spriteTransform;
+
         private void Awake()
         {
-            if (pickupText != null)
-            {
-                pickupText.gameObject.SetActive(false); // Ensure the text is initially hidden
-            }
-            else
-            {
-                Debug.LogError("Pickup TextMeshProUGUI not assigned in PlayerCombatManager!");
-            }
 
             // Enable all actions
             fireAction.Enable();
@@ -261,15 +257,32 @@ namespace AlignedGames
         {
             // Get mouse position in world space
             Vector2 screenPos = aimAction.ReadValue<Vector2>();
-            Vector3 worldPos = Camera.main.ScreenToWorldPoint(new Vector3(screenPos.x, screenPos.y, Camera.main.nearClipPlane + 10f)); // Adjust Z as needed
+
+            Vector3 worldPos = Camera.main.ScreenToWorldPoint(
+                new Vector3(
+                    screenPos.x,
+                    screenPos.y,
+                    Camera.main.nearClipPlane + 10f
+                )
+            );
 
             Vector2 aimDirection = ((Vector2)worldPos - (Vector2)transform.position).normalized;
 
-            if (aimDirection.sqrMagnitude > 0.01f) // Avoid aiming at self
+            if (aimDirection.sqrMagnitude > 0.01f)
             {
-                float angle = Mathf.Atan2(aimDirection.y, aimDirection.x) * Mathf.Rad2Deg;
-                // Apply rotation - consider smoothing (Slerp) for visual appeal
+                float angle = Mathf.Atan2(
+                    aimDirection.y,
+                    aimDirection.x
+                ) * Mathf.Rad2Deg;
+
+                // Rotate the player root toward mouse
                 transform.rotation = Quaternion.Euler(0, 0, angle);
+
+                // Keep player sprite upright
+                if (spriteTransform != null)
+                {
+                    spriteTransform.rotation = Quaternion.identity;
+                }
             }
         }
 

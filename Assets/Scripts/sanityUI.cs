@@ -22,17 +22,6 @@ public class SanityUI : MonoBehaviour
 
         UpdateText();
     }
-
-    private void OnEnable()
-    {
-        sanitySystem.OnSanityChanged += UpdateUI;
-    }
-
-    private void OnDisable()
-    {
-        sanitySystem.OnSanityChanged -= UpdateUI;
-    }
-
     private void Update()
     {
         sanitySlider.value = Mathf.Lerp(

@@ -79,7 +79,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 4
   m_MaskInteraction: 0
   m_Sprite: {fileID: 21300000, guid: efedd5b45c933244bb4d16547c23fed4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a575be96eed584a45982b006009713b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifetime: 3
+  lifetime: 10
   destroyOnImpact: 1
   explosionEffectPrefab: {fileID: 1404934643135856115, guid: d912da0c81d0f32478b1251cff9169bd, type: 3}
   hitEffectPrefab: {fileID: 8841401498067966524, guid: 63ef71ab6cdb3054687b5d78aa766989, type: 3}
