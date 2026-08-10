@@ -82,18 +82,15 @@ using UnityEngine;
     }
 
     private void UpdateWait(EnemyAction action)
+    {
+        waitTimer += Time.deltaTime;
+
+        if (waitTimer >= action.waitTime)
         {
-            if (waitTimer <= 0f)
-                waitTimer = action.waitTime;
-
-            waitTimer -= Time.deltaTime;
-
-            if (waitTimer <= 0f)
-            {
-                waitTimer = 0f;
-                NextAction();
-            }
+            waitTimer = 0f;
+            NextAction();
         }
+    }
 
     private void NextAction()
     {
