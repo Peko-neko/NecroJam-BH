@@ -1,23 +1,29 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerMovement : MonoBehaviour
 {
-
     private float normalGravity;
+
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 8f;
+    [SerializeField] private float walkSpeed = 8f;
+    [SerializeField] private float runSpeed = 12f;
+
+    [Header("Acceleration")]
     [SerializeField] private float acceleration = 50f;
+    [SerializeField] private float runAcceleration = 35f;
     [SerializeField] private float deceleration = 60f;
+    [SerializeField] private float runDeceleration = 25f;
+
+    [Header("Run")]
+    [SerializeField] private float runDelay = 2f;
 
     [Header("Jump")]
     [SerializeField] private float jumpForce = 14f;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckRadius = 0.15f;
     [SerializeField] private LayerMask groundLayer;
-
 
     [Header("Glide")]
     [SerializeField] private float glideFallSpeed = 2f;
@@ -34,13 +40,19 @@ public class PlayerMovement : MonoBehaviour
     [Header("Visuals")]
     [SerializeField] private Transform graphics;
 
+    [Header("Particles")]
+    [SerializeField] private ParticleSystem runDust;
+
     private Rigidbody2D rb;
 
     private Vector2 moveInput;
-    private bool glideHeld;
 
+    private bool glideHeld;
     private bool isGrounded;
     private bool isGliding;
+    private bool isRunning;
+
+    private float moveHeldTime;
 
     private void Awake()
     {
@@ -72,37 +84,82 @@ public class PlayerMovement : MonoBehaviour
         glideHeld = glideAction.action.IsPressed();
 
         CheckGrounded();
+        UpdateRun();
         UpdateGlide();
         UpdateVisuals();
-
     }
 
     private void FixedUpdate()
     {
         Move();
         HandleGlide();
+        UpdateRunDust();
+
     }
+
+    // =========================
+    // MOVEMENT
+    // =========================
 
     private void Move()
     {
-        float targetSpeed = moveInput.x * moveSpeed;
+        bool moving = Mathf.Abs(moveInput.x) > 0.01f;
+
+        float targetSpeed;
+
+        if (isRunning)
+            targetSpeed = moveInput.x * runSpeed;
+        else
+            targetSpeed = moveInput.x * walkSpeed;
 
         float accelerationRate;
 
-        if (Mathf.Abs(targetSpeed) > 0.01f)
-            accelerationRate = acceleration;
+        if (moving)
+        {
+            accelerationRate =
+                isRunning
+                    ? runAcceleration
+                    : acceleration;
+        }
         else
-            accelerationRate = deceleration;
+        {
+            accelerationRate =
+                isRunning
+                    ? runDeceleration
+                    : deceleration;
+        }
 
         float newSpeed = Mathf.MoveTowards(
             rb.linearVelocity.x,
             targetSpeed,
-            accelerationRate * Time.fixedDeltaTime);
+            accelerationRate * Time.fixedDeltaTime
+        );
 
         rb.linearVelocity = new Vector2(
             newSpeed,
-            rb.linearVelocity.y);
+            rb.linearVelocity.y
+        );
     }
+
+    private void UpdateRun()
+    {
+        if (Mathf.Abs(moveInput.x) > 0.01f)
+        {
+            moveHeldTime += Time.deltaTime;
+
+            if (moveHeldTime >= runDelay)
+                isRunning = true;
+        }
+        else
+        {
+            moveHeldTime = 0f;
+            isRunning = false;
+        }
+    }
+
+    // =========================
+    // JUMP
+    // =========================
 
     private void OnJump(InputAction.CallbackContext context)
     {
@@ -110,11 +167,17 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         isGliding = false;
+        glideBoostUsed = false;
 
         rb.linearVelocity = new Vector2(
             rb.linearVelocity.x,
-            jumpForce);
+            jumpForce
+        );
     }
+
+    // =========================
+    // GLIDE
+    // =========================
 
     private void UpdateGlide()
     {
@@ -146,7 +209,8 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(
                 rb.linearVelocity.x,
-                glideBoost);
+                glideBoost
+            );
 
             glideBoostUsed = true;
         }
@@ -156,9 +220,14 @@ public class PlayerMovement : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(
                 rb.linearVelocity.x,
-                -glideFallSpeed);
+                -glideFallSpeed
+            );
         }
     }
+
+    // =========================
+    // GROUND
+    // =========================
 
     private void CheckGrounded()
     {
@@ -171,8 +240,13 @@ public class PlayerMovement : MonoBehaviour
         isGrounded = Physics2D.OverlapCircle(
             groundCheck.position,
             groundCheckRadius,
-            groundLayer);
+            groundLayer
+        );
     }
+
+    // =========================
+    // VISUALS
+    // =========================
 
     private void UpdateVisuals()
     {
@@ -180,10 +254,49 @@ public class PlayerMovement : MonoBehaviour
             return;
 
         if (moveInput.x > 0.01f)
-            graphics.localScale = new Vector3(1f, 1f, 1f);
+        {
+            graphics.localScale =
+                new Vector3(1f, 1f, 1f);
+        }
         else if (moveInput.x < -0.01f)
-            graphics.localScale = new Vector3(-1f, 1f, 1f);
+        {
+            graphics.localScale =
+                new Vector3(-1f, 1f, 1f);
+        }
     }
+
+    // =========================
+    // PUBLIC STATE
+    // =========================
+
+    public bool IsGrounded()
+    {
+        return isGrounded;
+    }
+
+    public bool IsGliding()
+    {
+        return isGliding;
+    }
+
+    public bool IsRunning()
+    {
+        return isRunning;
+    }
+
+    public bool IsMoving()
+    {
+        return Mathf.Abs(moveInput.x) > 0.01f;
+    }
+
+    public float GetHorizontalSpeed()
+    {
+        return Mathf.Abs(rb.linearVelocity.x);
+    }
+
+    // =========================
+    // DEBUG
+    // =========================
 
     private void OnDrawGizmosSelected()
     {
@@ -192,6 +305,24 @@ public class PlayerMovement : MonoBehaviour
 
         Gizmos.DrawWireSphere(
             groundCheck.position,
-            groundCheckRadius);
+            groundCheckRadius
+        );
+    }
+
+    private void UpdateRunDust()
+    {
+        if (runDust == null)
+            return;
+
+        if (isRunning && Mathf.Abs(rb.linearVelocity.x) > 0.1f)
+        {
+            if (!runDust.isPlaying)
+                runDust.Play();
+        }
+        else
+        {
+            if (runDust.isPlaying)
+                runDust.Stop();
+        }
     }
 }
